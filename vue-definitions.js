@@ -128,10 +128,10 @@ Vue.component('graph', {
       }
 
       this.layout = {
-        title: 'Trajectory of COVID-19 '+ this.selectedData + ' (' + this.dates[this.day - 1] + ')',
+        title: 'Trajektorie of COVID-19 '+ this.selectedData + ' (' + this.dates[this.day - 1] + ')',
         showlegend: false,
         xaxis: {
-          title: 'Total ' + this.selectedData,
+          title: 'Celkem ' + this.selectedData,
           type: this.scale == 'Logarithmic Scale' ? 'log' : 'linear',
           range: this.xrange,
           titlefont: {
@@ -140,7 +140,7 @@ Vue.component('graph', {
           },
         },
         yaxis: {
-          title: 'New ' + this.selectedData + ' (in the Past Week)',
+          title: 'Novych ' + this.selectedData + ' (minuly tyden)',
           type: this.scale == 'Logarithmic Scale' ? 'log' : 'linear',
           range: this.yrange,
           titlefont: {
@@ -305,13 +305,8 @@ let app = new Vue({
       }
 
       if (urlParameters.has('data')) {
-        let myData = urlParameters.get('data').toLowerCase();
-        if (myData == 'cases') {
-          this.selectedData = 'Confirmed Cases';
-        } else if (myData == 'deaths') {
-          this.selectedData = 'Reported Deaths';
-        }
-
+        let myData = urlParameters.get('data');
+        this.selectedData = myData
       }
 
       if (urlParameters.has('country')) {
@@ -383,11 +378,27 @@ let app = new Vue({
 
     pullData(selectedData) {
 
-      if (selectedData == 'Confirmed Cases') {
+      if (selectedData == 'Svět (potvrzené)') {
        Plotly.d3.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", this.processData);
-      } else if (selectedData == 'Reported Deaths') {
+      } else if (selectedData == 'Svět (umrti)') {
        Plotly.d3.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv", this.processData);
-      }
+      } else if (selectedData == 'Česko - kraje (potvrzené)') {
+        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_nut3_just_czechia.csv", this.processData);
+      } else if (selectedData == 'Česko - kraje + Svět (potvrzené)') {
+        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_nut3_combined.csv", this.processData);
+      } else if (selectedData == 'Česko - věk (potvrzené)') {
+        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_age_just_czechia.csv", this.processData);
+      } else if (selectedData == 'Česko - věk + Svět (potvrzené)') {
+        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_age_combined.csv", this.processData);
+      } else if (selectedData == 'Česko - pohlaví (potvrzené)') {
+        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_sex_just_czechia.csv", this.processData);
+      } else if (selectedData == 'Česko - pohlaví + Svět (potvrzené)') {
+        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_sex_combined.csv", this.processData);
+      } else if (selectedData == 'Česko - pohlaví a věk (potvrzené)') {
+        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_sex_age_just_czechia.csv", this.processData);
+      } else if (selectedData == 'Česko - pohlaví a věk + Svět (potvrzené)') {
+        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_sex_age_combined.csv", this.processData);
+      }     
     },
 
     removeRepeats(array) {
@@ -503,7 +514,7 @@ let app = new Vue({
     },
 
     createURL() {
-      let baseUrl = 'https://aatishb.com/covidtrends/?';
+      let baseUrl = 'https://martin.majlis.cz/covidtrends/?';
 
       let queryUrl = new URLSearchParams();
 
@@ -511,9 +522,7 @@ let app = new Vue({
         queryUrl.append('scale', 'linear');
       }
 
-      if (this.selectedData == 'Reported Deaths') {
-        queryUrl.append('data', 'deaths');
-      }
+      queryUrl.append('data', this.selectedData);
 
       for (let country of this.countries) {
         if (this.selectedCountries.includes(country)) {
@@ -579,9 +588,19 @@ let app = new Vue({
 
     paused: true,
 
-    dataTypes: ['Confirmed Cases', 'Reported Deaths'],
+    dataTypes: [
+      'Svět (potvrzené)', 
+      'Česko - kraje (potvrzené)', 
+      'Česko - kraje + Svět (potvrzené)',    
+      'Česko - věk (potvrzené)', 
+      'Česko - věk + Svět (potvrzené)',
+      'Česko - pohlaví (potvrzené)',
+      'Česko - pohlaví + Svět (potvrzené)',
+      'Česko - pohlaví a věk (potvrzené)', 
+      'Česko - pohlaví a věk + Svět (potvrzené)',
+    ],
 
-    selectedData: 'Confirmed Cases',
+    selectedData: 'Česko - kraje + Svět (potvrzené)',
 
     sliderSelected: false,
 
@@ -593,7 +612,7 @@ let app = new Vue({
 
     selectedScale: 'Logarithmic Scale',
 
-    minCasesInCountry: 50,
+    minCasesInCountry: 20,
 
     dates: [],
 
@@ -603,7 +622,26 @@ let app = new Vue({
 
     isHidden: true,
 
-    selectedCountries: ['Australia', 'Canada', 'China', 'France', 'Germany', 'Iran', 'Italy', 'Japan', 'South Korea', 'Spain', 'Switzerland', 'US', 'United Kingdom', 'India', 'Pakistan'],
+    selectedCountries: [
+      ' Hlavní město Praha',
+      ' Středočeský kraj',
+      ' Jihočeský kraj',
+      ' Plzeňský kraj',
+      ' Karlovarský kraj',
+      ' Ústecký kraj',
+      ' Liberecký kraj',
+      ' Královéhradecký kraj',
+      ' Pardubický kraj',
+      ' Kraj Vysočina',
+      ' Jihomoravský kraj',
+      ' Olomoucký kraj',
+      ' Zlínský kraj',
+      ' Moravskoslezský kraj',
+      'Czechia',
+      'Austria',
+      'Germany',
+      'Italy',          
+    ],
 
     graphMounted: false,
 
