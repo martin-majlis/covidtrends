@@ -377,6 +377,11 @@ let app = new Vue({
     },
 
     pullData(selectedData) {
+      // GitHub - file limit is 100MB => cannot be used
+      // let base = "https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/";
+      // GitLab - it is using CORS => cannot be used
+      // let base = "https://gitlab.com/martin.majlis/covid-19/-/raw/master/data/derived/covidtrends/";
+      let base = 'https://covid-19-data.mysleniprozivot.cz/'
 
       if (selectedData == 'Svět (potvrzené)') {
        Plotly.d3.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", this.processData);
@@ -384,38 +389,38 @@ let app = new Vue({
        Plotly.d3.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv", this.processData);
       // confirmed
       } else if (selectedData == 'Česko - kraje (potvrzené)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_nut3_just_czechia.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_confirmed_by_nut3_just_czechia.csv", this.processData);
       } else if (selectedData == 'Česko - kraje + Svět (potvrzené)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_nut3_combined.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_confirmed_by_nut3_combined.csv", this.processData);
       } else if (selectedData == 'Česko - věk (potvrzené)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_age_just_czechia.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_confirmed_by_age_just_czechia.csv", this.processData);
       } else if (selectedData == 'Česko - věk + Svět (potvrzené)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_age_combined.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_confirmed_by_age_combined.csv", this.processData);
       } else if (selectedData == 'Česko - pohlaví (potvrzené)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_sex_just_czechia.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_confirmed_by_sex_just_czechia.csv", this.processData);
       } else if (selectedData == 'Česko - pohlaví + Svět (potvrzené)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_sex_combined.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_confirmed_by_sex_combined.csv", this.processData);
       } else if (selectedData == 'Česko - pohlaví a věk (potvrzené)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_sex_age_just_czechia.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_confirmed_by_sex_age_just_czechia.csv", this.processData);
       } else if (selectedData == 'Česko - pohlaví a věk + Svět (potvrzené)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_confirmed_by_sex_age_combined.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_confirmed_by_sex_age_combined.csv", this.processData);
       // deaths
       } else if (selectedData == 'Česko - kraje (úmrtí)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_deaths_by_nut3_just_czechia.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_deaths_by_nut3_just_czechia.csv", this.processData);
       } else if (selectedData == 'Česko - kraje + Svět (úmrtí)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_deaths_by_nut3_combined.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_deaths_by_nut3_combined.csv", this.processData);
       } else if (selectedData == 'Česko - věk (úmrtí)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_deaths_by_age_just_czechia.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_deaths_by_age_just_czechia.csv", this.processData);
       } else if (selectedData == 'Česko - věk + Svět (úmrtí)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_deaths_by_age_combined.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_deaths_by_age_combined.csv", this.processData);
       } else if (selectedData == 'Česko - pohlaví (úmrtí)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_deaths_by_sex_just_czechia.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_deaths_by_sex_just_czechia.csv", this.processData);
       } else if (selectedData == 'Česko - pohlaví + Svět (úmrtí)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_deaths_by_sex_combined.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_deaths_by_sex_combined.csv", this.processData);
       } else if (selectedData == 'Česko - pohlaví a věk (úmrtí)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_deaths_by_sex_age_just_czechia.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_deaths_by_sex_age_just_czechia.csv", this.processData);
       } else if (selectedData == 'Česko - pohlaví a věk + Svět (úmrtí)') {
-        Plotly.d3.csv("https://raw.githubusercontent.com/martin-majlis/covid-19/master/data/derived/covidtrends/time_series_covid19_deaths_by_sex_age_combined.csv", this.processData);
+        Plotly.d3.csv(base + "time_series_covid19_deaths_by_sex_age_combined.csv", this.processData);
       }
 
       // adjust min numbers
