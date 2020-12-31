@@ -88,7 +88,7 @@ Vue.component('graph', {
           color: 'rgba(0,0,0,0.15)'
         },
         hoverinfo:'x+y+text',
-        hovertemplate: '%{text}<br>Total ' + this.selectedData +': %{x:,}<br>Weekly ' + this.selectedData +': %{y:,}<extra></extra>',
+        hovertemplate: '%{text}<br>Celkem ' + this.selectedData +': %{x:,}<br>Týden ' + this.selectedData +': %{y:,}<extra></extra>',
       })
       );
 
@@ -104,7 +104,7 @@ Vue.component('graph', {
           size: 6,
           color: 'rgba(254, 52, 110, 1)'
         },
-        hovertemplate: '%{data.text}<br>Total ' + this.selectedData +': %{x:,}<br>Weekly ' + this.selectedData +': %{y:,}<extra></extra>',
+        hovertemplate: '%{data.text}<br>Celkem ' + this.selectedData +': %{x:,}<br>Týden ' + this.selectedData +': %{y:,}<extra></extra>',
 
       })
       );
@@ -128,7 +128,7 @@ Vue.component('graph', {
       }
 
       this.layout = {
-        title: 'Trajektorie of COVID-19 '+ this.selectedData + ' (' + this.dates[this.day - 1] + ')',
+        title: 'Trajektorie pro COVID-19 '+ this.selectedData + ' (' + this.dates[this.day - 1] + ')',
         showlegend: false,
         xaxis: {
           title: 'Celkem ' + this.selectedData,
@@ -140,7 +140,7 @@ Vue.component('graph', {
           },
         },
         yaxis: {
-          title: 'Novych ' + this.selectedData + ' (minuly tyden)',
+          title: 'Nových ' + this.selectedData + ' (minulý týden)',
           type: this.scale == 'Logarithmic Scale' ? 'log' : 'linear',
           range: this.yrange,
           titlefont: {
