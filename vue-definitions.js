@@ -194,7 +194,8 @@ Vue.component('graph', {
       if (this.scale == 'Logarithmic Scale') {
         this.xrange = [1, Math.ceil(Math.log10(1.5*xmax))]
       } else {
-        this.xrange = [-0.49*Math.pow(10,Math.floor(Math.log10(xmax))), Math.round(1.05 * xmax)];
+        // this.xrange = [-0.49*Math.pow(10,Math.floor(Math.log10(xmax))), Math.round(1.05 * xmax)];
+        this.xrange = [-0.05*Math.pow(10,Math.floor(Math.log10(xmax))), Math.round(1.05 * xmax)];
       }
 
     },
@@ -206,6 +207,7 @@ Vue.component('graph', {
         this.yrange = [1, Math.ceil(Math.log10(1.5*ymax))]
       } else {
         this.yrange = [-Math.pow(10,Math.floor(Math.log10(ymax))-2), Math.round(1.05 * ymax)];
+        // this.yrange = [0, Math.round(1.05 * ymax)];
       }
 
     },
